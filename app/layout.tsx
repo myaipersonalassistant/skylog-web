@@ -31,12 +31,14 @@ export default function RootLayout({
     <html lang="en" className={`${plusJakarta.variable} h-full antialiased`}>
       <head>
         <script
-          nowprocket=""
-          data-noptimize="1"
-          data-cfasync="false"
-          data-wpfc-render="false"
-          seraph-accel-crit="1"
-          data-no-defer="1"
+          {...({
+            nowprocket: "",
+            "data-noptimize": "1",
+            "data-cfasync": "false",
+            "data-wpfc-render": "false",
+            "seraph-accel-crit": "1",
+            "data-no-defer": "1",
+          } as React.ScriptHTMLAttributes<HTMLScriptElement>)}
           dangerouslySetInnerHTML={{
             __html: `(function () {
       var script = document.createElement("script");
