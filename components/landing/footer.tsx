@@ -1,3 +1,5 @@
+import Link from "next/link";
+import { appLinks, supportEmail } from "@/lib/app-links";
 import { brand } from "@/lib/brand";
 
 export function Footer() {
@@ -31,20 +33,20 @@ export function Footer() {
         </p>
 
         <div className="flex gap-6 text-sm">
-          <a
-            href="#"
+          <Link
+            href={appLinks.privacy}
             className="text-skylog-text-muted transition-colors hover:text-white"
           >
             Privacy
-          </a>
-          <a
-            href="#"
+          </Link>
+          <Link
+            href={appLinks.terms}
             className="text-skylog-text-muted transition-colors hover:text-white"
           >
             Terms
-          </a>
+          </Link>
           <a
-            href="mailto:hello@myskylog.com"
+            href={`mailto:${supportEmail}`}
             className="text-skylog-text-muted transition-colors hover:text-white"
           >
             Contact

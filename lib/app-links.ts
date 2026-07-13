@@ -5,6 +5,8 @@ export const appLinks = {
   home: "/",
   download: "/#download",
   pro: "/#pro",
+  privacy: "/privacy",
+  terms: "/terms",
   /** Primary CTA after Stripe — open app section until a deep link is configured. */
   returnToApp: "/#download",
 } as const;
