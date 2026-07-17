@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
+import "@fontsource-variable/manrope";
+import { CookieConsent } from "@/components/cookie-consent";
 import "./globals.css";
 
 const plusJakarta = Plus_Jakarta_Sans({
@@ -9,13 +11,13 @@ const plusJakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "SkyLog — Your personal flight diary",
+  title: "SkyLog — Book, manage and remember every journey",
   description:
-    "Log every mile you've flown. Map your routes, earn milestones, and sync your travel story across devices.",
+    "Book flights, stays, car rentals and flight extras, manage every trip, and keep your travel story together with SkyLog.",
   openGraph: {
-    title: "SkyLog — Your sky, your story",
+    title: "SkyLog — Your whole journey, one seamless story",
     description:
-      "The most beautiful way to track every mile you've ever flown.",
+      "Book flights, stays and cars, add travel extras, and manage every journey in one place.",
     url: "https://myskylog.com",
     siteName: "SkyLog",
     type: "website",
@@ -29,27 +31,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${plusJakarta.variable} h-full antialiased`}>
-      <head>
-        <script
-          {...({
-            nowprocket: "",
-            "data-noptimize": "1",
-            "data-cfasync": "false",
-            "data-wpfc-render": "false",
-            "seraph-accel-crit": "1",
-            "data-no-defer": "1",
-          } as React.ScriptHTMLAttributes<HTMLScriptElement>)}
-          dangerouslySetInnerHTML={{
-            __html: `(function () {
-      var script = document.createElement("script");
-      script.async = 1;
-      script.src = 'https://tpembars.com/NTQ2MzI2.js?t=546326';
-      document.head.appendChild(script);
-  })();`,
-          }}
-        />
-      </head>
-      <body className="min-h-full font-sans">{children}</body>
+      <body suppressHydrationWarning className="min-h-full font-sans">
+        {children}
+        <CookieConsent />
+      </body>
     </html>
   );
 }

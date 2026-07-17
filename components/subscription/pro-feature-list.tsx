@@ -19,7 +19,7 @@ export function ProFeatureList() {
               />
             </svg>
           </span>
-          <span className="text-sm text-skylog-text-muted">{feature}</span>
+          <span className="text-sm text-slate-600">{feature}</span>
         </li>
       ))}
     </ul>

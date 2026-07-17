@@ -22,9 +22,9 @@ export function StatusCard({
   footer,
 }: StatusCardProps) {
   return (
-    <article className="glass-dark relative overflow-hidden rounded-3xl p-8 shadow-2xl shadow-black/40 sm:p-10">
+    <article className="relative overflow-hidden rounded-3xl border border-slate-200 bg-white p-8 shadow-[0_28px_80px_rgba(42,112,126,0.14)] sm:p-10">
       <div
-        className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-white/[0.03] blur-2xl"
+        className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-skylog-mint/10 blur-2xl"
         aria-hidden
       />
 
@@ -38,10 +38,10 @@ export function StatusCard({
         <p className="mt-6 text-xs font-bold uppercase tracking-[0.22em] text-skylog-mint">
           {eyebrow}
         </p>
-        <h1 className="mt-3 text-2xl font-extrabold tracking-tight text-white sm:text-3xl">
+        <h1 className="mt-3 text-2xl font-extrabold tracking-tight text-skylog-ink sm:text-3xl">
           {title}
         </h1>
-        <p className="mx-auto mt-4 max-w-sm text-base leading-relaxed text-skylog-text-muted">
+        <p className="mx-auto mt-4 max-w-sm text-base leading-relaxed text-slate-600">
           {description}
         </p>
 
@@ -50,7 +50,7 @@ export function StatusCard({
             {primaryAction && (
               <Link
                 href={primaryAction.href}
-                className="inline-flex items-center justify-center rounded-full bg-skylog-teal px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-skylog-teal/25 transition-colors hover:bg-skylog-teal-deep"
+                className="inline-flex items-center justify-center rounded-xl bg-skylog-teal px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-skylog-teal/20 transition-colors hover:bg-skylog-teal-deep"
               >
                 {primaryAction.label}
               </Link>
@@ -58,7 +58,7 @@ export function StatusCard({
             {secondaryAction && (
               <Link
                 href={secondaryAction.href}
-                className="inline-flex items-center justify-center rounded-full border border-white/15 px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:border-white/30 hover:bg-white/5"
+                className="inline-flex items-center justify-center rounded-xl border border-slate-300 px-6 py-3.5 text-sm font-semibold text-skylog-ink transition-colors hover:border-skylog-mint hover:bg-skylog-scrim"
               >
                 {secondaryAction.label}
               </Link>
@@ -67,7 +67,7 @@ export function StatusCard({
         )}
 
         {footer && (
-          <div className="mt-8 border-t border-white/10 pt-6 text-left">{footer}</div>
+          <div className="mt-8 border-t border-slate-200 pt-6 text-left">{footer}</div>
         )}
       </div>
     </article>

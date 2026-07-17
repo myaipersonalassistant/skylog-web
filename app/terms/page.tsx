@@ -1,549 +1,370 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import {
+  ArrowUpRight,
+  FileCheck2,
+  PlaneTakeoff,
+  Scale,
+  ShieldCheck,
+} from "lucide-react";
 import { Footer } from "@/components/landing/footer";
-import { Starfield } from "@/components/landing/starfield";
-import { SubscriptionNavbar } from "@/components/subscription/subscription-navbar";
+import { Navbar } from "@/components/landing/navbar";
+import { PolicyHeroAnimation } from "@/components/policy-hero-animation";
 import { appLinks, supportEmail } from "@/lib/app-links";
 import { brand } from "@/lib/brand";
 
 export const metadata: Metadata = {
   title: `Terms of Service — ${brand.name}`,
-  description: `The terms that govern your use of the ${brand.name} app, website, and related services.`,
+  description: `The terms governing the ${brand.name} website, mobile app, travel bookings, and related services.`,
   openGraph: {
     title: `Terms of Service — ${brand.name}`,
-    description: `The terms that govern your use of the ${brand.name} app, website, and related services.`,
+    description: `The terms governing the ${brand.name} website, mobile app, travel bookings, and related services.`,
     url: `${brand.domain}/terms`,
     siteName: brand.name,
     type: "website",
   },
 };
 
-const lastUpdated = "July 13, 2026";
+const lastUpdated = "July 17, 2026";
 
-const sections = [
-  { id: "agreement", label: "Agreement to terms" },
-  { id: "eligibility", label: "Eligibility" },
-  { id: "accounts", label: "Accounts & security" },
-  { id: "services", label: "The Services" },
-  { id: "user-content", label: "Your content" },
-  { id: "acceptable-use", label: "Acceptable use" },
-  { id: "subscriptions", label: "Subscriptions & billing" },
-  { id: "intellectual-property", label: "Intellectual property" },
-  { id: "third-party", label: "Third-party services" },
-  { id: "disclaimers", label: "Disclaimers" },
-  { id: "liability", label: "Limitation of liability" },
-  { id: "indemnity", label: "Indemnification" },
-  { id: "termination", label: "Termination" },
-  { id: "changes", label: "Changes to the Services or Terms" },
-  { id: "governing-law", label: "Governing law" },
-  { id: "miscellaneous", label: "Miscellaneous" },
-  { id: "contact", label: "Contact us" },
-] as const;
+type TermsSection = {
+  id: string;
+  title: string;
+  paragraphs: readonly string[];
+  bullets?: readonly string[];
+};
+
+const sections: readonly TermsSection[] = [
+  {
+    id: "agreement",
+    title: "Agreement to these Terms",
+    paragraphs: [
+      "These Terms of Service govern your access to and use of the SkyLog website, mobile applications, booking experiences, account features, travel tools, and related services (together, the “Services”). By accessing or using the Services, you agree to these Terms and our Privacy Policy.",
+      "If you do not agree, do not use the Services. If you use SkyLog for an organization, you confirm that you have authority to bind that organization to these Terms.",
+    ],
+  },
+  {
+    id: "eligibility",
+    title: "Eligibility",
+    paragraphs: [
+      "You must be at least 13 years old, or the minimum digital-consent age in your country, to hold a SkyLog account. To make a travel booking, you must also be old enough and legally capable of entering the relevant booking contract.",
+      "A parent or guardian must supervise use by anyone below the age of majority where required. Suppliers may apply higher minimum ages for flights, accommodation, car rentals, or other products.",
+    ],
+  },
+  {
+    id: "accounts",
+    title: "Accounts and security",
+    paragraphs: [
+      "You agree to provide accurate information, keep it current, protect your credentials, and accept responsibility for activity under your account. Contact us promptly if you suspect unauthorized access.",
+    ],
+    bullets: [
+      "Do not share passwords, verification codes, or payment credentials.",
+      "Traveler names and details must match the identification used for travel.",
+      "Guest or device-only information may be lost if the app or local data is removed.",
+      "We may restrict accounts connected to fraud, abuse, security risks, or violations of these Terms.",
+    ],
+  },
+  {
+    id: "services",
+    title: "What SkyLog provides",
+    paragraphs: [
+      "SkyLog is a travel platform and personal travel companion. The Services may include searching and booking flights, stays, car rentals, and flight extras; managing trips; storing travel records; logging flights; boarding-pass tools; destination discovery; expenses; insights; and SkyLog Pro.",
+      "Features may differ by website, mobile platform, country, device, supplier, or membership. We may improve, change, suspend, or discontinue features where reasonably necessary.",
+    ],
+  },
+  {
+    id: "travel-bookings",
+    title: "Travel searches and bookings",
+    paragraphs: [
+      "Travel inventory and supported booking actions are supplied through third parties. SkyLog uses the Duffel API for supported flight, stay, car-rental, and flight-extra experiences. SkyLog is not an airline, hotel, property owner, or vehicle-rental operator.",
+      "When you confirm a booking, you also agree to the applicable airline, accommodation, rental-company, fare, and supplier terms shown during checkout. Those terms form part of your booking and may include restrictions, deadlines, age rules, baggage limits, deposit requirements, and no-refund conditions.",
+    ],
+    bullets: [
+      "Review names, dates, destinations, documents, and traveler details before paying.",
+      "A search result is not reserved until the booking is confirmed.",
+      "Availability and prices can change before confirmation.",
+      "A booking is complete only when a confirmation or booking reference is issued.",
+    ],
+  },
+  {
+    id: "pricing",
+    title: "Prices, payments, and taxes",
+    paragraphs: [
+      "The price and currency presented before confirmation are the basis of your purchase. A total may include fare or room cost, taxes, fees, selected extras, and other disclosed charges. Some suppliers may collect deposits, local taxes, resort fees, fuel charges, or other amounts separately where this is clearly stated.",
+      "You authorize the displayed payment to be processed using your selected method. Your bank or card provider may apply currency-conversion or international-transaction fees that SkyLog does not control.",
+    ],
+  },
+  {
+    id: "changes-refunds",
+    title: "Changes, cancellations, and refunds",
+    paragraphs: [
+      "Change, cancellation, credit, and refund rights depend on the product and supplier rules accepted at booking. Some bookings cannot be changed or refunded. Others may involve supplier charges, fare differences, or administration costs disclosed before an action is confirmed.",
+      "Where online management is supported, options appear in Manage trips. If an action must be completed by a supplier, SkyLog may direct you to that supplier. Refund timing depends on supplier approval, the payment method, and the financial institution.",
+    ],
+  },
+  {
+    id: "travel-information",
+    title: "Travel and operational information",
+    paragraphs: [
+      "Schedules, gates, terminals, delays, cancellations, and other operational information can change quickly. The mobile app may use the AirLabs API for supported live flight information.",
+      "SkyLog provides this information for convenience and does not guarantee that it is complete, current, or error-free. Always follow official instructions from the airline, airport, accommodation provider, rental company, government, or emergency authority.",
+    ],
+  },
+  {
+    id: "documents",
+    title: "Passports, visas, health, and travel requirements",
+    paragraphs: [
+      "You are responsible for checking and meeting passport, visa, transit, immigration, health, vaccination, insurance, licence, and other entry or travel requirements for every traveler and destination.",
+      "SkyLog content is general information, not legal, immigration, medical, or safety advice. Requirements can change, so verify them with official authorities before travel.",
+    ],
+  },
+  {
+    id: "user-content",
+    title: "Your travel records and content",
+    paragraphs: [
+      "You retain ownership of flight logs, notes, photos, receipts, profile details, and other content you provide. You grant SkyLog a non-exclusive, worldwide, royalty-free licence to host, process, display, and transmit that content only as needed to operate, secure, and improve features you choose to use.",
+      "You confirm that you have the right to provide and share your content and that it does not violate law, privacy, intellectual property, or another person’s rights.",
+    ],
+  },
+  {
+    id: "acceptable-use",
+    title: "Acceptable use",
+    paragraphs: ["You must use SkyLog lawfully and responsibly."],
+    bullets: [
+      "Do not commit fraud, make deceptive bookings, or impersonate another person.",
+      "Do not access another account or restricted administrative area without permission.",
+      "Do not upload malware, scrape the Services, overload systems, or bypass security or usage limits.",
+      "Do not infringe intellectual property, privacy, publicity, or other legal rights.",
+      "Do not misuse support channels, payment disputes, promotions, trials, or refunds.",
+    ],
+  },
+  {
+    id: "pro",
+    title: "SkyLog Pro and subscriptions",
+    paragraphs: [
+      "SkyLog Pro may provide premium app features through a recurring subscription. Current features, price, billing period, trial terms, taxes, and renewal details are shown before purchase.",
+      "Unless stated otherwise, subscriptions renew automatically until cancelled. Cancellation normally stops the next renewal while access continues through the paid period. Purchases made through an app store or payment provider may need to be managed through that provider.",
+    ],
+  },
+  {
+    id: "third-parties",
+    title: "Third-party services",
+    paragraphs: [
+      "SkyLog works with travel suppliers, Duffel, AirLabs, payment providers, app stores, mapping and place providers, identity services, and other partners. Their services, content, and booking fulfilment may be governed by separate terms and privacy policies.",
+      "We are not responsible for a third party’s independent acts, omissions, outages, content, or changes, except where applicable law requires otherwise.",
+    ],
+  },
+  {
+    id: "intellectual-property",
+    title: "SkyLog intellectual property",
+    paragraphs: [
+      "The Services, including SkyLog software, design, brand, logo, text, illustrations, and original content, are owned by SkyLog or its licensors and protected by intellectual-property laws.",
+      "We grant you a limited, personal, non-exclusive, non-transferable, revocable licence to use the Services for their intended purpose. You may not copy, sell, modify, reverse engineer, or commercially exploit them except where law expressly permits.",
+    ],
+  },
+  {
+    id: "availability",
+    title: "Availability and disclaimers",
+    paragraphs: [
+      "The Services are provided “as is” and “as available.” To the fullest extent permitted by law, we disclaim implied warranties including merchantability, fitness for a particular purpose, title, and non-infringement.",
+      "We do not promise uninterrupted availability or that every price, route, map, statistic, status, suggestion, or supplier detail will always be complete or error-free. Nothing in these Terms excludes warranties or consumer rights that cannot legally be excluded.",
+    ],
+  },
+  {
+    id: "liability",
+    title: "Limitation of liability",
+    paragraphs: [
+      "To the fullest extent permitted by law, SkyLog and its affiliates will not be liable for indirect, incidental, special, consequential, exemplary, or punitive loss, or loss of profits, data, goodwill, or opportunity arising from the Services.",
+      "Where liability may legally be limited, SkyLog’s total liability relating to the Services or these Terms will not exceed the greater of the amount you paid directly to SkyLog in the preceding 12 months or US $50. This limitation does not apply where prohibited by law.",
+    ],
+  },
+  {
+    id: "termination",
+    title: "Suspension and termination",
+    paragraphs: [
+      "You may stop using SkyLog at any time and may request account deletion through available account tools. We may restrict or terminate access where you materially breach these Terms, create a security or fraud risk, fail to pay amounts due, or where required by law.",
+      "Termination does not cancel supplier obligations, payment duties, confirmed bookings, or provisions that by their nature should continue.",
+    ],
+  },
+  {
+    id: "changes",
+    title: "Changes to these Terms",
+    paragraphs: [
+      "We may update these Terms as SkyLog, partner services, or legal requirements change. We will update the date above and provide additional notice where appropriate or legally required.",
+      "Continuing to use the Services after revised Terms take effect means you accept them. If you do not agree, stop using the Services and cancel applicable subscriptions.",
+    ],
+  },
+  {
+    id: "law",
+    title: "Governing law",
+    paragraphs: [
+      "These Terms are governed by the laws of the jurisdiction in which SkyLog primarily operates, without regard to conflict-of-law principles. Mandatory consumer protections in your country of residence continue to apply where they cannot be waived.",
+      "Courts in that jurisdiction will have authority over disputes, except where applicable consumer law gives you the right to bring a claim elsewhere.",
+    ],
+  },
+  {
+    id: "contact",
+    title: "Contact us",
+    paragraphs: [
+      `Questions about these Terms can be sent to ${supportEmail}. Please include enough information for us to understand your request, but never send passwords or full payment-card details.`,
+    ],
+  },
+];
 
 export default function TermsOfServicePage() {
   return (
-    <div className="relative min-h-screen overflow-hidden bg-skylog-night">
-      <Starfield />
-      <SubscriptionNavbar />
+    <>
+      <Navbar />
+      <main className="font-header bg-white">
+        <section className="relative overflow-hidden border-b border-slate-200 bg-[linear-gradient(145deg,#f5faf9_0%,#ffffff_54%,#edf8f6_100%)]">
+          <div className="pointer-events-none absolute -right-24 top-0 h-96 w-96 rounded-full bg-skylog-cyan/15 blur-3xl" />
+          <div className="relative mx-auto max-w-7xl px-6 py-16 sm:py-20 lg:px-8">
+            <div className="grid items-center gap-10 lg:grid-cols-[1fr_0.55fr]">
+            <div className="order-2 max-w-3xl lg:order-1">
+              <span className="inline-flex items-center gap-2 rounded-full border border-skylog-mint/30 bg-white/80 px-3 py-1.5 text-[0.68rem] font-extrabold uppercase tracking-[0.18em] text-skylog-teal shadow-sm">
+                <Scale className="h-3.5 w-3.5" aria-hidden="true" />
+                Legal agreement
+              </span>
+              <h1 className="mt-6 text-4xl font-[780] tracking-[-0.045em] text-[#193f48] sm:text-5xl">
+                Terms of Service
+              </h1>
+              <p className="mt-5 max-w-2xl text-base font-medium leading-8 text-[#526970] sm:text-lg">
+                The agreement for using SkyLog&apos;s website, mobile app,
+                travel-booking experiences, and personal travel tools.
+              </p>
+              <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-[0.75rem] font-semibold text-slate-500">
+                <span>Effective: {lastUpdated}</span>
+                <span aria-hidden="true">•</span>
+                <span>Applies to website and mobile app</span>
+              </div>
+            </div>
+              <div className="order-1 lg:order-2">
+                <PolicyHeroAnimation policy="terms" />
+              </div>
+            </div>
 
-      <main className="relative px-6 pb-20 pt-28">
-        <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[220px_minmax(0,1fr)] lg:gap-16">
-          <aside className="hidden lg:block">
-            <nav
-              aria-label="Terms of Service sections"
-              className="sticky top-28 space-y-1"
-            >
-              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-skylog-cyan">
+            <div className="mt-10 grid max-w-4xl gap-3 sm:grid-cols-3">
+              {[
+                { icon: PlaneTakeoff, label: "Travel bookings", text: "Flights, stays, cars, and extras" },
+                { icon: ShieldCheck, label: "Your account", text: "Security, content, and acceptable use" },
+                { icon: FileCheck2, label: "Clear conditions", text: "Payments, changes, refunds, and suppliers" },
+              ].map((item) => {
+                const Icon = item.icon;
+                return (
+                  <div key={item.label} className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white/80 p-4 shadow-sm">
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-skylog-teal/[0.08] text-skylog-teal">
+                      <Icon className="h-[1.1rem] w-[1.1rem]" strokeWidth={1.7} aria-hidden="true" />
+                    </span>
+                    <div>
+                      <p className="text-[0.8rem] font-bold text-[#253f47]">{item.label}</p>
+                      <p className="mt-0.5 text-[0.7rem] leading-5 text-slate-500">{item.text}</p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        <div className="mx-auto grid max-w-7xl gap-12 px-6 py-14 lg:grid-cols-[15rem_minmax(0,1fr)] lg:px-8 lg:py-20">
+          <aside>
+            <nav aria-label="Terms sections" className="sticky top-24 hidden max-h-[calc(100vh-7rem)] overflow-y-auto pr-3 lg:block">
+              <p className="mb-3 text-[0.66rem] font-extrabold uppercase tracking-[0.16em] text-skylog-teal">
                 On this page
               </p>
-              {sections.map((section) => (
-                <a
-                  key={section.id}
-                  href={`#${section.id}`}
-                  className="block rounded-md px-2 py-1.5 text-sm text-skylog-text-muted transition-colors hover:bg-white/5 hover:text-white"
-                >
-                  {section.label}
-                </a>
-              ))}
+              <ol className="space-y-0.5 border-l border-slate-200">
+                {sections.map((section, index) => (
+                  <li key={section.id}>
+                    <a
+                      href={`#${section.id}`}
+                      className="block border-l border-transparent py-1.5 pl-3 text-[0.75rem] font-medium text-slate-500 transition-colors hover:border-skylog-teal hover:text-skylog-teal"
+                    >
+                      {index + 1}. {section.title}
+                    </a>
+                  </li>
+                ))}
+              </ol>
             </nav>
+
+            <details className="rounded-2xl border border-slate-200 bg-skylog-scrim p-4 lg:hidden">
+              <summary className="cursor-pointer text-[0.8rem] font-bold text-[#253f47]">
+                Jump to a section
+              </summary>
+              <ol className="mt-4 grid gap-2 sm:grid-cols-2">
+                {sections.map((section, index) => (
+                  <li key={section.id}>
+                    <a href={`#${section.id}`} className="text-[0.75rem] font-medium text-skylog-teal">
+                      {index + 1}. {section.title}
+                    </a>
+                  </li>
+                ))}
+              </ol>
+            </details>
           </aside>
 
-          <article className="max-w-3xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-skylog-cyan">
-              Legal
-            </p>
-            <h1 className="mt-3 text-4xl font-extrabold tracking-tight text-white sm:text-5xl">
-              Terms of Service
-            </h1>
-            <p className="mt-4 text-base leading-relaxed text-skylog-text-muted sm:text-lg">
-              These Terms of Service (“Terms”) govern your access to and use of
-              the {brand.name} mobile app, website, and related products and
-              services (together, the “Services”).
-            </p>
-            <p className="mt-3 text-sm text-skylog-text-muted/80">
-              Last updated: {lastUpdated}
-            </p>
+          <article className="min-w-0 max-w-4xl">
+            <div className="rounded-2xl border border-amber-200 bg-amber-50/70 p-5">
+              <p className="text-[0.82rem] font-bold text-amber-900">A quick note before you travel</p>
+              <p className="mt-2 text-[0.8rem] leading-6 text-amber-900/75">
+                Supplier terms and fare rules are part of every booking. Review
+                the final price, traveler details, cancellation conditions, and
+                travel requirements before confirming.
+              </p>
+            </div>
 
-            <div className="mt-12 space-y-12 text-base leading-relaxed text-skylog-text-muted">
-              <section id="agreement" className="scroll-mt-28">
-                <h2 className="text-2xl font-bold tracking-tight text-white">
-                  1. Agreement to terms
-                </h2>
-                <p className="mt-4">
-                  By downloading, accessing, or using the Services, you agree to
-                  be bound by these Terms and our{" "}
-                  <Link
-                    href={appLinks.privacy}
-                    className="font-medium text-skylog-cyan transition-colors hover:text-white"
-                  >
-                    Privacy Policy
-                  </Link>
-                  . If you do not agree, do not use the Services.
-                </p>
-                <p className="mt-4">
-                  If you use the Services on behalf of an organization, you
-                  represent that you have authority to bind that organization,
-                  and “you” includes that organization.
-                </p>
-              </section>
+            <div className="mt-5 divide-y divide-slate-200">
+              {sections.map((section, index) => (
+                <section key={section.id} id={section.id} className="scroll-mt-28 py-9 first:pt-7">
+                  <div className="flex gap-4">
+                    <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-skylog-teal/[0.08] text-[0.68rem] font-extrabold text-skylog-teal">
+                      {index + 1}
+                    </span>
+                    <div className="min-w-0">
+                      <h2 className="text-xl font-[740] tracking-[-0.02em] text-[#193f48] sm:text-2xl">
+                        {section.title}
+                      </h2>
+                      <div className="mt-4 space-y-4 text-[0.88rem] leading-7 text-[#5a7077]">
+                        {section.paragraphs.map((paragraph) => (
+                          <p key={paragraph}>{paragraph}</p>
+                        ))}
+                        {section.bullets && (
+                          <ul className="space-y-2.5">
+                            {section.bullets.map((bullet) => (
+                              <li key={bullet} className="flex gap-2.5">
+                                <span className="mt-[0.68rem] h-1.5 w-1.5 shrink-0 rounded-full bg-skylog-teal" />
+                                <span>{bullet}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              ))}
+            </div>
 
-              <section id="eligibility" className="scroll-mt-28">
-                <h2 className="text-2xl font-bold tracking-tight text-white">
-                  2. Eligibility
-                </h2>
-                <p className="mt-4">
-                  You must be at least 13 years old (or the minimum age of
-                  digital consent in your country) to use the Services. If you
-                  are under the age of majority where you live, you may use the
-                  Services only with a parent or guardian’s consent and under
-                  their supervision.
+            <div className="mt-8 flex flex-col gap-5 rounded-[1.75rem] bg-skylog-scrim p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
+              <div>
+                <h2 className="text-lg font-[740] text-[#193f48]">Questions about these Terms?</h2>
+                <p className="mt-1 text-[0.82rem] text-[#5a7077]">
+                  Contact SkyLog and we&apos;ll help direct your enquiry.
                 </p>
-                <p className="mt-4">
-                  You must also have the legal capacity to enter into a binding
-                  agreement and must not be prohibited from using the Services
-                  under applicable law.
-                </p>
-              </section>
-
-              <section id="accounts" className="scroll-mt-28">
-                <h2 className="text-2xl font-bold tracking-tight text-white">
-                  3. Accounts & security
-                </h2>
-                <p className="mt-4">
-                  You may use {brand.name} as a guest or by creating an account.
-                  When you create an account, you agree to provide accurate
-                  information and keep it up to date.
-                </p>
-                <ul className="mt-4 list-disc space-y-2 pl-5">
-                  <li>
-                    You are responsible for maintaining the confidentiality of
-                    your login credentials and for all activity under your
-                    account.
-                  </li>
-                  <li>
-                    Notify us promptly at{" "}
-                    <a
-                      href={`mailto:${supportEmail}`}
-                      className="font-medium text-skylog-cyan transition-colors hover:text-white"
-                    >
-                      {supportEmail}
-                    </a>{" "}
-                    if you suspect unauthorized access.
-                  </li>
-                  <li>
-                    Guest / on-device data may be lost if you uninstall the
-                    app, clear app data, or lose your device before enabling
-                    cloud sync.
-                  </li>
-                  <li>
-                    We may refuse, suspend, or reclaim usernames or accounts that
-                    violate these Terms or that we reasonably believe are
-                    inactive, abusive, or fraudulent.
-                  </li>
-                </ul>
-              </section>
-
-              <section id="services" className="scroll-mt-28">
-                <h2 className="text-2xl font-bold tracking-tight text-white">
-                  4. The Services
-                </h2>
-                <p className="mt-4">
-                  {brand.name} is a personal flight diary that may include
-                  flight logging, journey maps and lifetime stats, milestones
-                  and badges, boarding-pass style views, trip photos, cloud
-                  sync, personalized insights, and optional Pro features.
-                </p>
-                <p className="mt-4">
-                  We may change, improve, suspend, or discontinue any part of
-                  the Services at any time. Features may vary by platform,
-                  region, device, or subscription plan.
-                </p>
-                <p className="mt-4">
-                  {brand.name} is a consumer journaling and visualization tool.
-                  It is not an airline, travel agency, booking service,
-                  navigation system, or official source of flight operations
-                  data. Do not rely on {brand.name} for safety-critical,
-                  operational, or official travel decisions.
-                </p>
-              </section>
-
-              <section id="user-content" className="scroll-mt-28">
-                <h2 className="text-2xl font-bold tracking-tight text-white">
-                  5. Your content
-                </h2>
-                <p className="mt-4">
-                  “User Content” means flight logs, notes, photos, profile
-                  details, milestone cards, and any other materials you submit,
-                  upload, store, or share through the Services.
-                </p>
-                <p className="mt-4">
-                  You retain ownership of your User Content. You grant{" "}
-                  {brand.name} a worldwide, non-exclusive, royalty-free license
-                  to host, store, process, display, and transmit your User
-                  Content solely as needed to operate, secure, and improve the
-                  Services and to provide features you enable (including cloud
-                  sync and sharing).
-                </p>
-                <p className="mt-4">You represent and warrant that:</p>
-                <ul className="mt-4 list-disc space-y-2 pl-5">
-                  <li>
-                    You have all rights necessary to submit the User Content and
-                    grant the license above
-                  </li>
-                  <li>
-                    Your User Content does not infringe others’ rights or
-                    violate applicable law
-                  </li>
-                  <li>
-                    Any shared milestone cards or public posts accurately
-                    represent material you are entitled to share
-                  </li>
-                </ul>
-                <p className="mt-4">
-                  You can delete many entries in the app. Account deletion and
-                  related retention are described in our Privacy Policy.
-                </p>
-              </section>
-
-              <section id="acceptable-use" className="scroll-mt-28">
-                <h2 className="text-2xl font-bold tracking-tight text-white">
-                  6. Acceptable use
-                </h2>
-                <p className="mt-4">You agree not to:</p>
-                <ul className="mt-4 list-disc space-y-2 pl-5">
-                  <li>
-                    Use the Services for unlawful, harmful, fraudulent, or
-                    deceptive purposes
-                  </li>
-                  <li>
-                    Upload malware, scrape or harvest data without permission, or
-                    interfere with the Services’ operation or security
-                  </li>
-                  <li>
-                    Attempt to reverse engineer, copy, or bypass technical
-                    limitations of the Services except where permitted by law
-                  </li>
-                  <li>
-                    Access another user’s account without authorization
-                  </li>
-                  <li>
-                    Misrepresent your identity, affiliation, or travel history in
-                    a way that harmfully deceives others
-                  </li>
-                  <li>
-                    Use the Services to infringe intellectual property, privacy,
-                    or other rights
-                  </li>
-                  <li>
-                    Abuse support channels, overwhelm infrastructure, or attempt
-                    to circumvent subscription paywalls or usage limits
-                  </li>
-                </ul>
-                <p className="mt-4">
-                  We may investigate violations and take action we consider
-                  appropriate, including removing content or suspending access.
-                </p>
-              </section>
-
-              <section id="subscriptions" className="scroll-mt-28">
-                <h2 className="text-2xl font-bold tracking-tight text-white">
-                  7. Subscriptions & billing
-                </h2>
-                <h3 className="mt-8 text-lg font-semibold text-white">
-                  7.1 Free and Pro features
-                </h3>
-                <p className="mt-4">
-                  Some features are available free of charge. {brand.name} Pro
-                  may unlock additional capabilities such as expanded logging,
-                  journey maps and lifetime stats, milestone sharing, and cloud
-                  sync. Feature packaging may change over time.
-                </p>
-
-                <h3 className="mt-8 text-lg font-semibold text-white">
-                  7.2 Purchases
-                </h3>
-                <p className="mt-4">
-                  Paid subscriptions may be offered through the Apple App Store,
-                  Google Play, and/or Stripe-powered checkout on our website.
-                  Prices, billing periods, and taxes will be shown at purchase.
-                </p>
-                <ul className="mt-4 list-disc space-y-2 pl-5">
-                  <li>
-                    Unless stated otherwise, subscriptions renew automatically
-                    until canceled.
-                  </li>
-                  <li>
-                    Manage or cancel App Store / Play Store subscriptions through
-                    your store account settings, and website/Stripe purchases
-                    through the billing portal or in-app subscription tools we
-                    provide.
-                  </li>
-                  <li>
-                    Cancellation typically stops future renewals; you generally
-                    retain access for the remainder of the paid period unless
-                    otherwise required by law or store policy.
-                  </li>
-                  <li>
-                    Refunds are handled according to Apple, Google, Stripe, and
-                    applicable consumer law policies. Contact the original
-                    purchase channel first when required.
-                  </li>
-                </ul>
-
-                <h3 className="mt-8 text-lg font-semibold text-white">
-                  7.3 Trials and changes
-                </h3>
-                <p className="mt-4">
-                  If we offer a free trial, we will disclose its length and what
-                  happens when it ends. We may change prices or plan features
-                  prospectively; where required, we will provide notice and
-                  options to accept, decline, or cancel.
-                </p>
-              </section>
-
-              <section id="intellectual-property" className="scroll-mt-28">
-                <h2 className="text-2xl font-bold tracking-tight text-white">
-                  8. Intellectual property
-                </h2>
-                <p className="mt-4">
-                  The Services — including software, design, logos, text,
-                  graphics, and trademarks — are owned by {brand.name} or our
-                  licensors and are protected by intellectual property laws.
-                </p>
-                <p className="mt-4">
-                  Subject to these Terms, we grant you a limited, personal,
-                  non-exclusive, non-transferable, revocable license to use the
-                  Services for your own non-commercial personal use. You may
-                  not copy, modify, distribute, sell, lease, or create
-                  derivative works of our software or branding except as
-                  expressly allowed.
-                </p>
-                <p className="mt-4">
-                  Feedback you send us may be used freely to improve the
-                  Services without obligation to you.
-                </p>
-              </section>
-
-              <section id="third-party" className="scroll-mt-28">
-                <h2 className="text-2xl font-bold tracking-tight text-white">
-                  9. Third-party services
-                </h2>
-                <p className="mt-4">
-                  The Services may integrate with or link to third parties such
-                  as app stores, payment processors, identity providers, map or
-                  data providers, and analytics tools. Those services are
-                  governed by their own terms and privacy policies. We are not
-                  responsible for third-party content, availability, or
-                  practices.
-                </p>
-              </section>
-
-              <section id="disclaimers" className="scroll-mt-28">
-                <h2 className="text-2xl font-bold tracking-tight text-white">
-                  10. Disclaimers
-                </h2>
-                <p className="mt-4">
-                  THE SERVICES ARE PROVIDED “AS IS” AND “AS AVAILABLE.” TO THE
-                  MAXIMUM EXTENT PERMITTED BY LAW, WE DISCLAIM ALL WARRANTIES,
-                  WHETHER EXPRESS, IMPLIED, OR STATUTORY, INCLUDING IMPLIED
-                  WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
-                  PURPOSE, TITLE, AND NON-INFRINGEMENT.
-                </p>
-                <p className="mt-4">
-                  We do not warrant that the Services will be uninterrupted,
-                  error-free, secure, or that flight data, maps, stats,
-                  milestones, or other content will be accurate, complete, or
-                  up to date. Map routes, distances, times, and achievements are
-                  estimates for personal journaling purposes only.
-                </p>
-              </section>
-
-              <section id="liability" className="scroll-mt-28">
-                <h2 className="text-2xl font-bold tracking-tight text-white">
-                  11. Limitation of liability
-                </h2>
-                <p className="mt-4">
-                  TO THE MAXIMUM EXTENT PERMITTED BY LAW, {brand.name.toUpperCase()}{" "}
-                  AND ITS AFFILIATES, OFFICERS, EMPLOYEES, AND AGENTS WILL NOT
-                  BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL,
-                  CONSEQUENTIAL, EXEMPLARY, OR PUNITIVE DAMAGES, OR ANY LOSS OF
-                  PROFITS, DATA, GOODWILL, OR BUSINESS OPPORTUNITY, ARISING OUT
-                  OF OR RELATED TO YOUR USE OF (OR INABILITY TO USE) THE
-                  SERVICES.
-                </p>
-                <p className="mt-4">
-                  TO THE MAXIMUM EXTENT PERMITTED BY LAW, OUR TOTAL LIABILITY FOR
-                  ANY CLAIM ARISING OUT OF OR RELATING TO THE SERVICES OR THESE
-                  TERMS WILL NOT EXCEED THE GREATER OF (A) THE AMOUNTS YOU PAID
-                  US FOR THE SERVICES IN THE TWELVE (12) MONTHS BEFORE THE
-                  CLAIM, OR (B) FIFTY U.S. DOLLARS (US $50).
-                </p>
-                <p className="mt-4">
-                  Some jurisdictions do not allow certain exclusions or
-                  limitations. In those jurisdictions, our liability is limited
-                  to the fullest extent permitted by law. Nothing in these
-                  Terms limits liability that cannot be limited under applicable
-                  law (such as certain consumer rights).
-                </p>
-              </section>
-
-              <section id="indemnity" className="scroll-mt-28">
-                <h2 className="text-2xl font-bold tracking-tight text-white">
-                  12. Indemnification
-                </h2>
-                <p className="mt-4">
-                  You agree to defend, indemnify, and hold harmless{" "}
-                  {brand.name} and its affiliates, officers, employees, and
-                  agents from and against claims, damages, losses, liabilities,
-                  costs, and expenses (including reasonable attorneys’ fees)
-                  arising out of or related to your User Content, your use of
-                  the Services, or your violation of these Terms or applicable
-                  law.
-                </p>
-              </section>
-
-              <section id="termination" className="scroll-mt-28">
-                <h2 className="text-2xl font-bold tracking-tight text-white">
-                  13. Termination
-                </h2>
-                <p className="mt-4">
-                  You may stop using the Services at any time and may request
-                  account deletion by contacting us or using in-app tools where
-                  available.
-                </p>
-                <p className="mt-4">
-                  We may suspend or terminate your access immediately if you
-                  violate these Terms, if required by law, or if we discontinue
-                  the Services. Upon termination, the license granted to you
-                  ends. Sections that by their nature should survive
-                  (including ownership, disclaimers, limitations of liability,
-                  indemnity, and governing law) will survive.
-                </p>
-              </section>
-
-              <section id="changes" className="scroll-mt-28">
-                <h2 className="text-2xl font-bold tracking-tight text-white">
-                  14. Changes to the Services or Terms
-                </h2>
-                <p className="mt-4">
-                  We may update these Terms from time to time. When we do, we
-                  will revise the “Last updated” date and, where appropriate,
-                  provide additional notice in the app or on the website. If you
-                  continue to use the Services after the updated Terms take
-                  effect, you accept the revised Terms. If you do not agree,
-                  stop using the Services and cancel any paid subscription.
-                </p>
-              </section>
-
-              <section id="governing-law" className="scroll-mt-28">
-                <h2 className="text-2xl font-bold tracking-tight text-white">
-                  15. Governing law
-                </h2>
-                <p className="mt-4">
-                  These Terms are governed by the laws of the jurisdiction in
-                  which {brand.name} primarily operates, without regard to
-                  conflict-of-law principles, except where mandatory consumer
-                  protection laws in your country of residence apply and cannot
-                  be waived.
-                </p>
-                <p className="mt-4">
-                  Courts in that jurisdiction will have exclusive jurisdiction
-                  over disputes arising from these Terms, except that you may
-                  bring claims in your local courts where required by
-                  applicable consumer law.
-                </p>
-              </section>
-
-              <section id="miscellaneous" className="scroll-mt-28">
-                <h2 className="text-2xl font-bold tracking-tight text-white">
-                  16. Miscellaneous
-                </h2>
-                <ul className="mt-4 list-disc space-y-2 pl-5">
-                  <li>
-                    <span className="text-white">Entire agreement:</span> these
-                    Terms and the Privacy Policy are the entire agreement
-                    between you and {brand.name} regarding the Services.
-                  </li>
-                  <li>
-                    <span className="text-white">Severability:</span> if any
-                    provision is unenforceable, the remaining provisions remain
-                    in effect.
-                  </li>
-                  <li>
-                    <span className="text-white">Waiver:</span> failure to
-                    enforce a provision is not a waiver of our right to enforce
-                    it later.
-                  </li>
-                  <li>
-                    <span className="text-white">Assignment:</span> you may not
-                    assign these Terms without our consent; we may assign them
-                    in connection with a merger, acquisition, or sale of
-                    assets.
-                  </li>
-                  <li>
-                    <span className="text-white">App stores:</span> if you
-                    download the app from Apple or Google, you acknowledge that
-                    the store provider is not responsible for providing
-                    maintenance or support for the app, and that these Terms are
-                    between you and {brand.name}, not the store provider, except
-                    for store-required beneficiary or warranty provisions.
-                  </li>
-                </ul>
-              </section>
-
-              <section id="contact" className="scroll-mt-28">
-                <h2 className="text-2xl font-bold tracking-tight text-white">
-                  17. Contact us
-                </h2>
-                <p className="mt-4">
-                  Questions about these Terms? Contact us at:
-                </p>
-                <p className="mt-4">
-                  <span className="text-white">{brand.name}</span>
-                  <br />
-                  Email:{" "}
-                  <a
-                    href={`mailto:${supportEmail}`}
-                    className="font-medium text-skylog-cyan transition-colors hover:text-white"
-                  >
-                    {supportEmail}
-                  </a>
-                  <br />
-                  Website:{" "}
-                  <Link
-                    href="/"
-                    className="font-medium text-skylog-cyan transition-colors hover:text-white"
-                  >
-                    {brand.domain.replace(/^https?:\/\//, "")}
-                  </Link>
-                </p>
-              </section>
+              </div>
+              <div className="flex flex-wrap gap-3">
+                <Link href={appLinks.contact} className="inline-flex items-center gap-2 rounded-xl bg-skylog-teal px-4 py-3 text-[0.8rem] font-bold text-white">
+                  Contact us
+                  <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+                </Link>
+                <Link href={appLinks.privacy} className="inline-flex items-center rounded-xl border border-slate-300 bg-white px-4 py-3 text-[0.8rem] font-bold text-[#253f47]">
+                  Privacy Policy
+                </Link>
+              </div>
             </div>
           </article>
         </div>
       </main>
-
       <Footer />
-    </div>
+    </>
   );
 }

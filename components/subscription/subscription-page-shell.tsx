@@ -1,4 +1,3 @@
-import { Starfield } from "@/components/landing/starfield";
 import { SubscriptionNavbar } from "./subscription-navbar";
 
 type SubscriptionPageShellProps = {
@@ -19,8 +18,9 @@ export function SubscriptionPageShell({
   accent = "teal",
 }: SubscriptionPageShellProps) {
   return (
-    <div className="relative min-h-screen overflow-hidden bg-skylog-night">
-      <Starfield />
+    <div className="relative min-h-screen overflow-hidden bg-[linear-gradient(145deg,#f8fbfb_0%,#ffffff_48%,#edf8f6_100%)]">
+      <div className="pointer-events-none absolute -right-32 top-20 h-96 w-96 rounded-full bg-skylog-cyan/15 blur-3xl" />
+      <div className="pointer-events-none absolute -left-32 bottom-10 h-96 w-96 rounded-full bg-skylog-mint/15 blur-3xl" />
       <SubscriptionNavbar />
 
       <main className="relative flex min-h-screen items-center justify-center px-6 pb-16 pt-24">

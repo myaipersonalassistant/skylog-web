@@ -1,14 +1,14 @@
 import { proFeatures } from "@/lib/brand";
-import { Starfield } from "./starfield";
 
 export function ProSection() {
   return (
-    <section id="pro" className="relative overflow-hidden bg-skylog-night py-24">
-      <Starfield />
+    <section id="pro" className="relative overflow-hidden bg-[linear-gradient(135deg,#edf8f6_0%,#ffffff_48%,#f8f5eb_100%)] py-24">
+      <div className="pointer-events-none absolute -left-24 top-20 h-80 w-80 rounded-full bg-skylog-mint/15 blur-3xl" />
+      <div className="pointer-events-none absolute -right-24 bottom-0 h-80 w-80 rounded-full bg-skylog-amber/10 blur-3xl" />
 
       <div className="relative mx-auto max-w-6xl px-6">
         <div className="mx-auto max-w-2xl text-center">
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-skylog-amber/15 px-3 py-1 text-xs font-bold uppercase tracking-wider text-skylog-amber">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-amber-700">
             <svg viewBox="0 0 20 20" fill="currentColor" className="h-3.5 w-3.5" aria-hidden>
               <path
                 fillRule="evenodd"
@@ -18,24 +18,24 @@ export function ProSection() {
             </svg>
             SkyLog Pro
           </span>
-          <h2 className="mt-5 text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
+          <h2 className="mt-5 text-3xl font-extrabold tracking-tight text-skylog-ink sm:text-4xl">
             Unlock SkyLog Pro
           </h2>
-          <p className="mt-4 text-lg text-skylog-text-muted">
+          <p className="mt-4 text-lg text-slate-600">
             Your logbook, stats, and milestones — without limits.
           </p>
         </div>
 
         <div className="mx-auto mt-12 max-w-lg">
-          <div className="glass-dark rounded-3xl p-8 shadow-2xl shadow-black/30">
+          <div className="rounded-3xl border border-slate-200 bg-white p-8 shadow-[0_28px_80px_rgba(42,112,126,0.14)]">
             <ul className="space-y-4">
               {proFeatures.map((feature) => (
                 <li key={feature} className="flex items-center gap-3">
-                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-skylog-teal/20">
+                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-skylog-teal/10">
                     <svg
                       viewBox="0 0 20 20"
                       fill="currentColor"
-                      className="h-3.5 w-3.5 text-skylog-mint"
+                      className="h-3.5 w-3.5 text-skylog-teal"
                       aria-hidden
                     >
                       <path
@@ -45,21 +45,21 @@ export function ProSection() {
                       />
                     </svg>
                   </span>
-                  <span className="text-sm font-medium text-white">{feature}</span>
+                  <span className="text-sm font-semibold text-skylog-ink">{feature}</span>
                 </li>
               ))}
             </ul>
 
-            <div className="mt-8 border-t border-white/10 pt-6 text-center">
-              <p className="text-3xl font-extrabold text-white">
+            <div className="mt-8 border-t border-slate-200 pt-6 text-center">
+              <p className="text-3xl font-extrabold text-skylog-ink">
                 7-day free trial
               </p>
-              <p className="mt-1 text-sm text-skylog-text-muted">
+              <p className="mt-1 text-sm text-slate-500">
                 No charge until trial ends · Cancel anytime
               </p>
               <a
                 href="#download"
-                className="mt-6 inline-flex w-full items-center justify-center rounded-full bg-skylog-amber px-6 py-3.5 text-sm font-bold text-skylog-night transition-colors hover:bg-amber-300"
+                className="mt-6 inline-flex w-full items-center justify-center rounded-xl bg-skylog-teal px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-skylog-teal/15 transition-all hover:-translate-y-0.5 hover:bg-skylog-teal-deep"
               >
                 Start your free trial
               </a>

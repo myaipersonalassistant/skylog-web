@@ -14,8 +14,8 @@
   --skylog-elevated: #1a2538;
   --skylog-border-dark: #2a3a52;
   --skylog-text-muted: #94a3b8;
-  --background: var(--skylog-night);
-  --foreground: #f1f5f9;
+  --background: #ffffff;
+  --foreground: var(--skylog-ink);
 }
 
 @theme inline {
@@ -35,6 +35,7 @@
   --color-skylog-border-dark: var(--skylog-border-dark);
   --color-skylog-text-muted: var(--skylog-text-muted);
   --font-sans: var(--font-plus-jakarta), system-ui, sans-serif;
+  --font-header: "Manrope Variable", "Manrope", system-ui, sans-serif;
 }
 
 html {
@@ -45,6 +46,11 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
+}
+
+::selection {
+  background: rgba(127, 179, 179, 0.35);
+  color: var(--skylog-ink);
 }
 
 @keyframes twinkle {
@@ -76,6 +82,152 @@ body {
   }
 }
 
+@keyframes nav-backdrop-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes nav-drawer-in {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+@keyframes about-logo-flight {
+  0%,
+  100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  50% {
+    transform: scale(1.018);
+    filter: brightness(1.04);
+  }
+}
+
+@keyframes about-speed-past {
+  0% {
+    opacity: 0;
+    transform: translateY(-150%) scaleY(0.65);
+  }
+  12% {
+    opacity: 0.95;
+  }
+  88% {
+    opacity: 0.78;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(760%) scaleY(1.75);
+  }
+}
+
+@keyframes about-wind-ring {
+  0% {
+    opacity: 0;
+    top: 16%;
+    transform: translate(-50%, -50%) scale(0.42);
+  }
+  18% {
+    opacity: 0.88;
+  }
+  100% {
+    opacity: 0;
+    top: 93%;
+    transform: translate(-50%, -50%) scale(1.55);
+  }
+}
+
+@keyframes about-flight-trail {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: translateX(-50%) scaleY(0.82);
+  }
+  50% {
+    opacity: 0.95;
+    transform: translateX(-50%) scaleY(1.08);
+  }
+}
+
+@keyframes loading-progress {
+  0% {
+    transform: translateX(-110%);
+  }
+  50% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(310%);
+  }
+}
+
+.about-logo-flight {
+  animation: about-logo-flight 1.15s ease-in-out infinite;
+}
+
+.about-speed-line {
+  position: absolute;
+  top: -32%;
+  width: 3px;
+  height: 8rem;
+  border-radius: 999px;
+  background: linear-gradient(to bottom, transparent, rgba(32, 96, 111, 0.82), rgba(125, 211, 252, 0.45));
+  box-shadow: 0 0 10px rgba(42, 112, 126, 0.3);
+  animation: about-speed-past 0.82s linear infinite;
+}
+
+.about-speed-line:nth-child(1) { left: 7%; animation-delay: -0.2s; animation-duration: 0.72s; }
+.about-speed-line:nth-child(2) { left: 17%; animation-delay: -0.55s; animation-duration: 0.91s; }
+.about-speed-line:nth-child(3) { left: 29%; animation-delay: -0.1s; animation-duration: 0.66s; }
+.about-speed-line:nth-child(4) { left: 40%; animation-delay: -0.7s; animation-duration: 0.86s; }
+.about-speed-line:nth-child(5) { left: 51%; animation-delay: -0.35s; animation-duration: 0.69s; }
+.about-speed-line:nth-child(6) { left: 62%; animation-delay: -0.62s; animation-duration: 0.94s; }
+.about-speed-line:nth-child(7) { left: 73%; animation-delay: -0.12s; animation-duration: 0.76s; }
+.about-speed-line:nth-child(8) { left: 84%; animation-delay: -0.46s; animation-duration: 0.88s; }
+.about-speed-line:nth-child(9) { left: 93%; animation-delay: -0.78s; animation-duration: 0.7s; }
+.about-speed-line:nth-child(10) { left: 23%; animation-delay: -0.84s; animation-duration: 1s; }
+
+.about-wind-ring {
+  position: absolute;
+  left: 50%;
+  top: 16%;
+  width: 68%;
+  height: 19%;
+  border: 2px solid rgba(32, 96, 111, 0.48);
+  border-radius: 50%;
+  box-shadow: 0 0 16px rgba(42, 112, 126, 0.16);
+  animation: about-wind-ring 1.35s ease-in infinite;
+}
+
+.about-wind-ring-two {
+  animation-delay: -0.45s;
+}
+
+.about-wind-ring-three {
+  animation-delay: -0.9s;
+}
+
+.about-flight-trail {
+  animation: about-flight-trail 0.72s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-logo-flight,
+  .about-speed-line,
+  .about-wind-ring,
+  .about-flight-trail {
+    animation: none;
+  }
+
+  .about-speed-line,
+  .about-wind-ring {
+    opacity: 0;
+  }
+}
+
 .star {
   animation: twinkle var(--duration, 3s) ease-in-out infinite;
   animation-delay: var(--delay, 0s);
@@ -104,4 +256,34 @@ body {
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(16px);
   border: 1px solid rgba(184, 212, 212, 0.5);
+}
+
+.legal-page {
+  background:
+    radial-gradient(circle at 85% 8%, rgba(125, 211, 252, 0.12), transparent 28rem),
+    linear-gradient(180deg, #f8fbfb 0%, #ffffff 30%);
+  color: var(--skylog-ink);
+}
+
+.legal-page article h1,
+.legal-page article h2,
+.legal-page article h3,
+.legal-page article span {
+  color: var(--skylog-ink);
+}
+
+.legal-page article > p,
+.legal-page article > div,
+.legal-page article section,
+.legal-page aside a {
+  color: #5a6e75;
+}
+
+.legal-page article a {
+  color: var(--skylog-teal);
+}
+
+.legal-page aside a:hover {
+  background: rgba(42, 112, 126, 0.07);
+  color: var(--skylog-teal);
 }

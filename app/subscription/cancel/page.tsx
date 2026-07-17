@@ -44,9 +44,9 @@ export default function SubscriptionCancelPage() {
           href: appLinks.pro,
         }}
         footer={
-          <p className="text-center text-sm text-skylog-text-muted">
+          <p className="text-center text-sm text-slate-600">
             Tip: open SkyLog and tap{" "}
-            <span className="font-semibold text-white">Upgrade to Pro</span> on
+            <span className="font-semibold text-skylog-ink">Upgrade to Pro</span> on
             your profile when you&apos;re ready for unlimited logs and journey
             maps.
           </p>

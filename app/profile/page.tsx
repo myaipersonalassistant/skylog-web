@@ -45,17 +45,17 @@ export default function ProfileBillingReturnPage() {
           href: appLinks.home,
         }}
         footer={
-          <div className="space-y-3 text-center text-sm text-skylog-text-muted">
+          <div className="space-y-3 text-center text-sm text-slate-600">
             <p>
               Manage invoices, payment method, or cancel anytime from{" "}
-              <span className="font-semibold text-white">Profile → Subscription</span>{" "}
+              <span className="font-semibold text-skylog-ink">Profile → Subscription</span>{" "}
               in the app.
             </p>
             <p>
               Questions?{" "}
               <Link
                 href={`mailto:${supportEmail}`}
-                className="font-medium text-skylog-cyan transition-colors hover:text-white"
+                className="font-medium text-skylog-teal transition-colors hover:text-skylog-teal-deep"
               >
                 {supportEmail}
               </Link>
